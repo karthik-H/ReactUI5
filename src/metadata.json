@@ -1,0 +1,61 @@
+{
+    "entityList": [
+        {
+            "name": "ItemDetails",
+            "link": "/item"
+        },
+        {
+            "name": "ItemCategory",
+            "link": "/item/category"
+        },
+        {
+            "name": "ItemSubcategory",
+            "link": "/item/sub-category"
+        }
+    ],
+    "ItemDetails": {
+        "ui": {
+            "list": {
+                "search": {
+                    "field": [
+                        "id",
+                        "itemName"
+                    ],
+                    "label": "Enter Item ID or name"
+                },
+                "filter": [
+                    {
+                        "field": "categoryID",
+                        "label": "category"
+                    },
+                    {
+                        "field": "categoryID",
+                        "label": "category"
+                    }
+                ],
+                "lineItem": [
+                    {
+                        "field": "ID",
+                        "label": "Item ID"
+                    },
+                    {
+                        "field": "imageLink",
+                        "label": "Item Image"
+                    },
+                    {
+                        "field": "name",
+                        "label": "Item Name"
+                    },
+                    {
+                        "field": "categoryID",
+                        "label": "category"
+                    },
+                    {
+                        "field": "SubCategoryID",
+                        "label": "sub-category"
+                    }
+                ]
+            }
+        }
+    }
+}

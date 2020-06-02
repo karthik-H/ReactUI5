@@ -1,0 +1,56 @@
+          // {
+          //   pathSegment: 'items',
+          //   label: 'Item Details',
+          //   category: {
+          //     label: 'Item Info',
+          //     icon: 'blank-tag-2',
+          //     collapsible: true
+          //   },
+          //   navigationContext: 'category',
+          //   // context: {
+          //   //   item: 'item'
+          //   // },
+          //   // children: [{
+          //   //   pathSegment: ':id',
+          //   //   hideFromNav: true,
+          //   //   viewUrl: '/sampleapp.html#/object-form',
+          //   //   context: {
+          //   //     // type: ':type'
+          //   //     id: ':id'
+          //   //   }
+          //   // }],
+          //   loadingIndicator: {
+          //     enabled: false
+          //   },
+          //   viewUrl: '/sampleapp.html#/item-list'
+          // },
+          // {
+          //   pathSegment: 'details/:id',
+          //   hideFromNav: true,
+          //   category: 'Item Info',
+          //   loadingIndicator: {
+          //     enabled: false
+          //   },
+          //   // context: {
+          //   //   id: ':id'
+          //   // },
+          //   viewUrl: '/sampleapp.html#/object-form'
+          // }
+          // ,
+          // {
+          //   pathSegment: 'category',
+          //   label: 'Item Category',
+          //   category: 'Item Info',
+          //   loadingIndicator: {
+          //     enabled: false
+          //   },
+          //   viewUrl: '/sampleapp.html#/object-form'
+          // }, {
+          //   pathSegment: 'sub-category',
+          //   label: 'Item Sub-Category',
+          //   category: 'Item Info',
+          //   loadingIndicator: {
+          //     enabled: false
+          //   },
+          //   viewUrl: '/admin-home/objectPage/sv'
+          // },
