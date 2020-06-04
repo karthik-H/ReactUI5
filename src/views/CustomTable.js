@@ -1,79 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
-    Table,
-    TableColumn,
-    TableRow,
-    TableCell,
-    ObjectStatus,
-    Label,
-    ValueState,
-    Avatar,
-    AvatarShape
+    Table
 } from '@ui5/webcomponents-react'
 
-import LuigiClient from '@luigi-project/client';
+import CustomColumn from '../views/CustomColumn'
+import CustomRow from '../views/CustomRow'
+
 
 export default function CustomTable(props) {
-    const onAvailablityClick = () => {
-        console.log(LuigiClient.getContext());
-        const link = LuigiClient.linkManager().withParams({ type: 'category' });
-        link.navigate('/admin-home/objectPage/2');
+    const data = props.tableData.data;
+    const property = props.tableData.property;
+    const tempcolumnData = [];
+    for (let key in property) {
+        tempcolumnData.push(key);
     }
+    const [columnData, setColumnData] = useState(tempcolumnData);
     return (
         <Table
             noDataText={'no Items avaialble'}
             showNoData={true}
             stickyColumnHeader={'Items'}
             columns={
-                <>
-                    <TableColumn style={{ width: '8rem' }}>
-                        <Label>ID</Label>
-                    </TableColumn>
-                    <TableColumn >
-                        <Label>Item Image</Label>
-                    </TableColumn>
-                    <TableColumn minWidth={500} popinText="Item Name" demandPopin>
-                        <Label>Item Name</Label>
-                    </TableColumn>
-                    <TableColumn minWidth={600}>
-                        <Label>Category</Label>
-                    </TableColumn>
-                    <TableColumn minWidth={600}>
-                        <Label>SubCategory</Label>
-                    </TableColumn>
-                    <TableColumn minWidth={300} popinText="Status" demandPopin>
-                        <Label>Status</Label>
-                    </TableColumn>
-                </>
+                <CustomColumn columnName={columnData} property={property} />
             }
             //   onPopinChange={action('onPopinChange')}
             onRowClick={props.onRowClick}
         >
-            <TableRow id="2">
-                <TableCell>
-                    <Label>2</Label>
-                </TableCell>
-                <TableCell>
-                    <Avatar
-                        shape={AvatarShape.Square}
-                        image={"https://res.cloudinary.com/dsywyhhdl/image/upload/v1590764351/boost_uhyhgi.jpg"}
-                    />
-                </TableCell>
-                <TableCell>
-                    <Label>Boost</Label>
-                </TableCell>
-                <TableCell>
-                    <Label>2</Label>
-                </TableCell>
-                <TableCell>
-                    <Label>10</Label>
-                </TableCell>
-                <TableCell>
-                    <ObjectStatus state={ValueState.Success}> Active</ObjectStatus>
-                </TableCell>
-            </TableRow>
+            <CustomRow rowData={data} columnName={columnData} property={property} />
         </Table>
     );
 }
-
-// export default CustomTable;
