@@ -5,7 +5,7 @@ import Home from './views/home.js';
 import Sample1 from './views/sample1.js';
 import Sample2 from './views/sample2.js';
 import DashBoardFun from './views/dashboard-fun.js';
-import ItemList from './views/item-list.js';
+import ItemList from './components/ListPage/item-list.js';
 import { addInitListener } from '@luigi-project/client';
 import ObjectForm, { } from './views/ObjectForm.js'
 import './index.css';

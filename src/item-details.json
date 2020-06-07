@@ -1,4 +1,72 @@
 {
+    "search": {
+        "label": "Search by ID or Name",
+        "field": [
+            "id",
+            "name"
+        ]
+    },
+    "filter": [
+        {
+            "label": "Category",
+            "field": "categoryId",
+            "suggestion": "category",
+            "component": "MultiComboBox"
+        },
+        {
+            "label": "Status",
+            "field": "status",
+            "suggestion": "status",
+            "component": "ComboBox"
+        },
+        {
+            "label": "Item ID",
+            "field": "id",
+            "component": "Input"
+        }
+    ],
+    "suggestion": {
+        "category": [
+            {
+                "key": "1",
+                "value": "boost"
+            },
+            {
+                "key": "3",
+                "value": "sunsilk"
+            },
+            {
+                "key": "4",
+                "value": "horlicks"
+            }
+        ],
+        "status": [
+            {
+                "key": "1",
+                "value": "Active"
+            },
+            {
+                "key": "2",
+                "value": "InActive"
+            },
+            {
+                "key": "3",
+                "value": "klm"
+            },
+            {
+                "key": "4",
+                "value": "nop"
+            },
+            {
+                "key": "5",
+                "value": "qlm"
+            },
+            {
+                "key": "6",
+                "value": "wxy"
+            }
+        ]
+    },
     "property": {
         "id": {
             "label": "itemID",

@@ -3,13 +3,13 @@ import {
     Table
 } from '@ui5/webcomponents-react'
 
-import CustomColumn from '../views/CustomColumn'
-import CustomRow from '../views/CustomRow'
+import CustomColumn from './CustomColumn'
+import CustomRow from './CustomRow'
 
 
 export default function CustomTable(props) {
-    const data = props.tableData.data;
-    const property = props.tableData.property;
+    const data = props.tableData;
+    const property = props.property;
     const tempcolumnData = [];
     for (let key in property) {
         tempcolumnData.push(key);

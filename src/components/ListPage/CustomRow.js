@@ -4,7 +4,7 @@ import {
     TableCell
 } from '@ui5/webcomponents-react'
 
-import GenerateCustomComponent from './GenerateCustomComponent';
+import GenerateCustomComponent from '../GenerateCustomComponent';
 
 export default function CustomRow(props) {
     const getCriticality = (columnName, row) => {
