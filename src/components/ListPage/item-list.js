@@ -1,23 +1,55 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-import LuigiClient from '@luigi-project/client';
+import LuigiClient, {
+    addInitListener
+} from '@luigi-project/client';
+import Luigi from '@luigi-project/core/luigi';
 import CustomTable from './CustomTable'
-
+import { Button, FlexBox, ButtonDesign } from '@ui5/webcomponents-react';
 import CustomFilter from './FilterBar/CustomFilter'
 import '@ui5/webcomponents/dist/features/InputSuggestions.js'
-import data from '../../item-details.json';
-export default function ItemList() {
-    const searchProps = data.search;
-    const filterProps = data.filter;
+import getFieldValue from '../../functions/getFieldValue'
+import { spacing } from '@ui5/webcomponents-react-base';
+// import data from '../../item-details.json';
+export default function ItemList(props) {
+
+    const [context, setContext] = useState("");
+    const [entityData, setEntityData] = useState([]);
+    // const [property, setProperty] = useState({});
+    const [filterProps, setFilterProps] = useState([]);
+    const [searchProps, setSearchProps] = useState({});
+    const [suggestion, setSuggestion] = useState({});
+    const [action, setAction] = useState({});
+    const data = props.data;
+    // const searchProps = data.search;
+    // const filterProps = data.filter;
     const property = data.property;
-    const entityData = data.data;
-    const suggestion = data.suggestion;
+    // const entityData = data.data;
+    // const suggestion = data.suggestion;
+    // const action = data.action;
     let filterValue = {};
 
-    const onRowClick = () => {
-        console.log(LuigiClient.getContext());
-        const link = LuigiClient.linkManager().withParams({ type: 'category' });
-        link.navigate('/admin-home/objectPage/2');
+    useEffect(() => {
+        const initListener = addInitListener((e) => {
+            setContext(LuigiClient.getContext().parentNavigationContexts[0]);
+            console.log("context", LuigiClient.getContext().parentNavigationContexts[0]);
+        }
+        );
+
+    }, []);
+
+    useEffect(() => {
+        // setProperty(data.property);
+        setEntityData(data.data);
+        setSearchProps(data.search);
+        setFilterProps(data.filter);
+        setSuggestion(data.suggestion);
+        setAction(data.action);
+    }, [context])
+
+    const onRowClick = (e) => {
+        const link = LuigiClient.linkManager().withParams({ type: LuigiClient.getContext().parentNavigationContexts[0], action: "Read" });
+        link.navigate(`/admin-home/objectPage/${e.detail.row.id}`);
     }
 
     const onGoClick = (e) => {
@@ -26,17 +58,21 @@ export default function ItemList() {
 
     const onFilterChange = (e) => {
         const parentID = e.target.id;
-        filterValue[parentID] = getFilterValue(e);
+        filterValue[parentID] = getFieldValue(e);
         console.log("filter", filterValue);
     }
-
+    const onCreate = (e) => {
+        const link = LuigiClient.linkManager().withParams({ type: LuigiClient.getContext().parentNavigationContexts[0], action: "Create" });
+        link.navigate(`/admin-home/objectPage/id`);
+    }
     const getFilterValue = (e) => {
         const component = e.target.nodeName;
         switch (component) {
             case "UI5-MULTI-COMBOBOX":
                 return (e.detail.items.map(item => item.id));
             case "UI5-COMBOBOX":
-                const filteredItem = e.target._state._filteredItems;
+                const value = e.target.value;
+                const filteredItem = e.target.items.filter(item => item.text === value);
                 if (filteredItem.length > 0) {
                     return (filteredItem[0].id);
                 }
@@ -51,18 +87,28 @@ export default function ItemList() {
         <div>
             <section className="fd-section">
                 <div className="fd-section__header">
-                    <h1 className="fd-section__title">Items(2)</h1>
+                    {/* <h1 className="fd-section__title">Items(2)</h1> */}
                 </div>
                 <div className="header">
                     {
                         <CustomFilter search={searchProps} filter={filterProps}
                             suggestion={suggestion}
+                            property={property}
                             onFilterChange={onFilterChange}
                             onGoClick={onGoClick}
                         />
                     }
 
                 </div>
+                <FlexBox justifyContent="End">
+                    {
+                        action === undefined || action.CreateEnabled !== "true" ?
+                            <> </> :
+                            <Button design={ButtonDesign.Emphasized} style={spacing.sapUiSmallMarginBegin} onClick={
+                                onCreate
+                            }>Create</Button>
+                    }
+                </FlexBox>
 
                 <CustomTable tableData={entityData} property={property} onRowClick={onRowClick} />
             </section>

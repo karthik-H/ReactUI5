@@ -7,24 +7,13 @@
         ]
     },
     "filter": [
-        {
-            "label": "Category",
-            "field": "categoryId",
-            "suggestion": "category",
-            "component": "MultiComboBox"
-        },
-        {
-            "label": "Status",
-            "field": "status",
-            "suggestion": "status",
-            "component": "ComboBox"
-        },
-        {
-            "label": "Item ID",
-            "field": "id",
-            "component": "Input"
-        }
+        "categoryId",
+        "status",
+        "id"
     ],
+    "action": {
+        "CreateEnabled": "true"
+    },
     "suggestion": {
         "category": [
             {
@@ -71,33 +60,38 @@
         "id": {
             "label": "itemID",
             "importence": "HIGH",
-            "component": "Label"
+            "component": "Label",
+            "editComponent": "Input"
         },
         "imageLinks": {
             "label": "Image",
             "importence": "HIGH",
             "component": "Avatar"
         },
+        "name": {
+            "label": "ItemName",
+            "importence": "MEDIUM",
+            "component": "Label"
+        },
         "categoryId": {
             "label": "category",
             "importence": "LOW",
-            "component": "Label"
+            "component": "Label",
+            "suggestion": "category",
+            "editComponent": "MultiComboBox"
         },
         "subCategoryId": {
             "label": "SubCategory",
             "importence": "LOW",
             "component": "Label"
         },
-        "name": {
-            "label": "ItemName",
-            "importence": "MEDIUM",
-            "component": "Label"
-        },
         "status": {
             "label": "Status",
             "importence": "MEDIUM",
             "component": "ObjectStatus",
-            "criticality": "state"
+            "criticality": "state",
+            "suggestion": "status",
+            "editComponent": "ComboBox"
         }
     },
     "data": [

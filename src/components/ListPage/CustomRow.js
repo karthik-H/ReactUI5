@@ -4,21 +4,22 @@ import {
     TableCell
 } from '@ui5/webcomponents-react'
 
-import GenerateCustomComponent from '../GenerateCustomComponent';
+import CustomColumnItem from '../CustomColumnItem.js'
 
 export default function CustomRow(props) {
+    const rows = props.rowData === undefined ? [] : props.rowData;
     const getCriticality = (columnName, row) => {
         return row[props.property[columnName].criticality];
     }
     return (
         <>
             {
-                props.rowData.map(row => (
+                rows.map(row => (
                     <TableRow id={row[props.columnName[0]]}>
                         {
                             props.columnName.map(column => (
-                                <TableCell>
-                                    <GenerateCustomComponent value={row[column]} property={props.property[column]}
+                                <TableCell id={"id"}>
+                                    <CustomColumnItem value={row[column]} property={props.property[column]}
                                         criticality={getCriticality(column, row)} />
                                 </TableCell>
                             ))

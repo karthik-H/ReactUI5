@@ -1,0 +1,29 @@
+[
+    {
+        "id": 2,
+        "categoryId": 5,
+        "subCategoryId": null,
+        "name": "boost",
+        "imageLinks": "http://res.cloudinary.com/dsywyhhdl/image/upload/v1586801720/xinuzgjp24xnyfxg6nsz.jpg",
+        "status": "Active",
+        "state": "Success"
+    },
+    {
+        "id": 3,
+        "categoryId": 2,
+        "subCategoryId": 4,
+        "name": "Mother's Choice White Dried Peas",
+        "imageLinks": "http://res.cloudinary.com/dsywyhhdl/image/upload/v1586961451/gwyiz5h8taf7xpgnymev.jpg",
+        "status": "Active",
+        "state": "Success"
+    },
+    {
+        "id": 4,
+        "categoryId": 4,
+        "subCategoryId": 3,
+        "name": "sunpure Refined sunflower oil",
+        "imageLinks": "http://res.cloudinary.com/dsywyhhdl/image/upload/v1586961451/gwyiz5h8taf7xpgnymev.jpg",
+        "status": "InActive",
+        "state": "Error"
+    }
+]

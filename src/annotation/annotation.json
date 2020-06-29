@@ -1,0 +1,403 @@
+{
+    "itemDetails": {
+        "search": {
+            "label": "Search by ID or Name",
+            "field": [
+                "id",
+                "name"
+            ]
+        },
+        "filter": [
+            "categoryId",
+            "status",
+            "id"
+        ],
+        "header": {
+            "headerContent": {
+                "field": [
+                    "status",
+                    "categoryId",
+                    "subCategoryId"
+                ]
+            },
+            "keyInfos": {
+                "field": []
+            },
+            "title": "name",
+            "subTitle": "id",
+            "image": "defaultImage",
+            "headerActions": [
+                {
+                    "type": "CustomAvailabilityAction",
+                    "id": "customAvlAction",
+                    "url": "/markItAvailable"
+                }
+            ]
+        },
+        "action": {
+            "updateEnabled": "true",
+            "deleteEnabled": "false",
+            "CreateEnabled": "true"
+        },
+        "facet": [
+            {
+                "label": "General Information",
+                "id": "GeneralInfo",
+                "type": "fieldGroup",
+                "field": [
+                    "id",
+                    "name",
+                    "categoryId",
+                    "subCategoryId"
+                ]
+            },
+            {
+                "label": "Description",
+                "id": "description",
+                "type": "fieldGroup",
+                "association": "description",
+                "field": [
+                    "itemProperties",
+                    "sellerName",
+                    "disclaimer"
+                ]
+            },
+            {
+                "label": "Availablity",
+                "id": "availablity",
+                "type": "lineItem",
+                "association": "itemAvailabilities",
+                "contextType": "availability"
+            },
+            {
+                "label": "Image",
+                "id": "image",
+                "type": "imageLinks",
+                "association": "imageLinks"
+            }
+        ],
+        "suggestion": {
+            "category": [
+                {
+                    "key": "1",
+                    "value": "Grocerry"
+                },
+                {
+                    "key": "3",
+                    "value": "Book"
+                },
+                {
+                    "key": "4",
+                    "value": "Nuts"
+                }
+            ],
+            "subCategory": [
+                {
+                    "key": "1",
+                    "value": "rice"
+                },
+                {
+                    "key": "3",
+                    "value": "oil"
+                },
+                {
+                    "key": "4",
+                    "value": "wheet"
+                }
+            ],
+            "status": [
+                {
+                    "key": "1",
+                    "value": "Active"
+                },
+                {
+                    "key": "2",
+                    "value": "InActive"
+                }
+            ]
+        },
+        "property": {
+            "id": {
+                "label": "itemID",
+                "importence": "HIGH",
+                "component": "Label",
+                "key": "true",
+                "readOnly": "true",
+                "editComponent": "Input"
+            },
+            "imageLinks": {
+                "label": "Image",
+                "importence": "HIGH",
+                "component": "Avatar"
+            },
+            "categoryId": {
+                "label": "category",
+                "importence": "LOW",
+                "component": "Label",
+                "suggestion": "category",
+                "editComponent": "ComboBox"
+            },
+            "subCategoryId": {
+                "label": "SubCategory",
+                "importence": "LOW",
+                "component": "Label",
+                "suggestion": "subCategory",
+                "editComponent": "ComboBox"
+            },
+            "name": {
+                "label": "ItemName",
+                "importence": "MEDIUM",
+                "component": "Text",
+                "editComponent": "Input"
+            },
+            "status": {
+                "label": "Status",
+                "importence": "MEDIUM",
+                "component": "ObjectStatus",
+                "criticality": "state",
+                "suggestion": "status",
+                "editComponent": "ComboBox"
+            },
+            "description": {
+                "itemProperties": {
+                    "label": "Item Properties",
+                    "importence": "MEDIUM",
+                    "component": "Text",
+                    "editComponent": "Input"
+                },
+                "sellerName": {
+                    "label": "Seller Name",
+                    "importence": "MEDIUM",
+                    "component": "Text",
+                    "editComponent": "Input"
+                },
+                "disclaimer": {
+                    "label": "disclaimer",
+                    "importence": "MEDIUM",
+                    "component": "Text",
+                    "editComponent": "Input"
+                }
+            },
+            "itemAvailabilities": {
+                "id": {
+                    "label": "id",
+                    "importence": "HIGH",
+                    "component": "Label"
+                },
+                "actualPrice": {
+                    "label": "actualPrice",
+                    "importence": "HIGH",
+                    "component": "Label"
+                },
+                "discountPrice": {
+                    "label": "discountPrice",
+                    "importence": "HIGH",
+                    "component": "Label"
+                },
+                "value": {
+                    "label": "value",
+                    "importence": "MEDIUM",
+                    "component": "Label"
+                },
+                "unit": {
+                    "label": "unit",
+                    "importence": "MEDIUM",
+                    "component": "Label"
+                },
+                "available": {
+                    "label": "available",
+                    "importence": "MEDIUM",
+                    "component": "ObjectStatus",
+                    "criticality": "state"
+                }
+            }
+        },
+        "metadata": {
+            "id": "",
+            "categoryId": "",
+            "subCategoryId": "",
+            "name": "",
+            "status": "",
+            "state": "",
+            "itemAvailabilities": [
+                {
+                    "id": "",
+                    "itemId": "",
+                    "actualPrice": "",
+                    "discount": "",
+                    "discountPrice": "",
+                    "value": "",
+                    "unit": "",
+                    "available": "",
+                    "state": ""
+                }
+            ],
+            "defaultImage": "",
+            "description": {
+                "itemProperties": "",
+                "sellerName": "",
+                "disclaimer": ""
+            },
+            "imageLinks": {
+                "image": [
+                    "",
+                    ""
+                ],
+                "default": ""
+            }
+        }
+    },
+    "itemCategory": {
+        "header": {
+            "headerContent": {
+                "field": []
+            },
+            "keyInfos": {
+                "field": []
+            },
+            "title": "name",
+            "subTitle": "id",
+            "image": "imageLink",
+            "headerActions": []
+        },
+        "action": {
+            "updateEnabled": "true",
+            "deleteEnabled": "true"
+        },
+        "facet": [
+            {
+                "label": "General Information",
+                "id": "GeneralInfo",
+                "type": "fieldGroup",
+                "field": [
+                    "id",
+                    "name",
+                    "description"
+                ]
+            }
+        ],
+        "property": {
+            "id": {
+                "label": "CategoryID",
+                "importence": "HIGH",
+                "component": "Label",
+                "key": "true",
+                "readOnly": "true",
+                "editComponent": "Input"
+            },
+            "imageLink": {
+                "label": "Image",
+                "importence": "HIGH",
+                "component": "Avatar"
+            },
+            "name": {
+                "label": "CategoryName",
+                "importence": "HIGH",
+                "component": "Text",
+                "editComponent": "Input"
+            },
+            "description": {
+                "label": "Description",
+                "importence": "MEDIUM",
+                "component": "Input",
+                "editComponent": "Input"
+            }
+        },
+        "metadata": {
+            "id": "",
+            "imageLink": "",
+            "name": "",
+            "description": ""
+        }
+    },
+    "itemSubcategory": {
+        "header": {
+            "headerContent": {
+                "field": [
+                    "categoryId"
+                ]
+            },
+            "keyInfos": {
+                "field": []
+            },
+            "title": "name",
+            "subTitle": "id",
+            "image": "imageLink",
+            "headerActions": []
+        },
+        "action": {
+            "updateEnabled": "true",
+            "deleteEnabled": "true"
+        },
+        "facet": [
+            {
+                "label": "General Information",
+                "id": "GeneralInfo",
+                "type": "fieldGroup",
+                "field": [
+                    "id",
+                    "name",
+                    "description",
+                    "categoryId"
+                ]
+            }
+        ],
+        "suggestion": {
+            "category": [
+                {
+                    "key": "1",
+                    "value": "Grocerry"
+                },
+                {
+                    "key": "3",
+                    "value": "Book"
+                },
+                {
+                    "key": "4",
+                    "value": "Nuts"
+                }
+            ]
+        },
+        "property": {
+            "id": {
+                "label": "CategoryID",
+                "importence": "HIGH",
+                "component": "Label",
+                "key": "true",
+                "readOnly": "true",
+                "editComponent": "Input"
+            },
+            "imageLink": {
+                "label": "Image",
+                "importence": "HIGH",
+                "component": "Avatar"
+            },
+            "categoryId": {
+                "label": "Category ID",
+                "importence": "MEDIUM",
+                "component": "Text",
+                "suggestion": "category",
+                "editComponent": "ComboBox"
+            },
+            "name": {
+                "label": "CategoryName",
+                "importence": "HIGH",
+                "component": "Text",
+                "editComponent": "Input"
+            },
+            "description": {
+                "label": "Description",
+                "importence": "MEDIUM",
+                "component": "Input",
+                "editComponent": "Input"
+            }
+        },
+        "metadata": {
+            "id": "",
+            "imageLink": "",
+            "name": "",
+            "categoryId": "",
+            "description": ""
+        }
+    }
+}

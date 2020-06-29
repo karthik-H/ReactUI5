@@ -1,0 +1,280 @@
+{
+    "header": {
+        "headerContent": {
+            "field": [
+                "status",
+                "categoryId",
+                "subCategoryId"
+            ]
+        },
+        "keyInfos": {
+            "field": []
+        },
+        "title": "name",
+        "subTitle": "id",
+        "image": "defaultImage",
+        "headerActions": [
+            {
+                "type": "CustomAvailabilityAction",
+                "id": "customAvlAction",
+                "url": "/markItAvailable"
+            }
+        ]
+    },
+    "action": {
+        "updateEnabled": "true",
+        "deleteEnabled": "false"
+    },
+    "facet": [
+        {
+            "label": "General Information",
+            "id": "GeneralInfo",
+            "type": "fieldGroup",
+            "field": [
+                "id",
+                "name",
+                "categoryId",
+                "subCategoryId"
+            ]
+        },
+        {
+            "label": "Description",
+            "id": "description",
+            "type": "fieldGroup",
+            "association": "description",
+            "field": [
+                "itemProperties",
+                "sellerName",
+                "disclaimer"
+            ]
+        },
+        {
+            "label": "Availablity",
+            "id": "availablity",
+            "type": "lineItem",
+            "association": "itemAvailabilities",
+            "contextType": "availability"
+        },
+        {
+            "label": "Image",
+            "id": "image",
+            "type": "imageLinks",
+            "association": "imageLinks"
+        }
+    ],
+    "suggestion": {
+        "category": [
+            {
+                "key": "1",
+                "value": "Grocerry"
+            },
+            {
+                "key": "3",
+                "value": "Book"
+            },
+            {
+                "key": "4",
+                "value": "Nuts"
+            }
+        ],
+        "subCategory": [
+            {
+                "key": "1",
+                "value": "rice"
+            },
+            {
+                "key": "3",
+                "value": "oil"
+            },
+            {
+                "key": "4",
+                "value": "wheet"
+            }
+        ],
+        "status": [
+            {
+                "key": "1",
+                "value": "Active"
+            },
+            {
+                "key": "2",
+                "value": "InActive"
+            }
+        ]
+    },
+    "property": {
+        "id": {
+            "label": "itemID",
+            "importence": "HIGH",
+            "component": "Label",
+            "key": "true",
+            "readOnly": "true",
+            "editComponent": "Input"
+        },
+        "imageLinks": {
+            "label": "Image",
+            "importence": "HIGH",
+            "component": "Avatar"
+        },
+        "categoryId": {
+            "label": "category",
+            "importence": "LOW",
+            "component": "Label",
+            "suggestion": "category",
+            "editComponent": "ComboBox"
+        },
+        "subCategoryId": {
+            "label": "SubCategory",
+            "importence": "LOW",
+            "component": "Label",
+            "suggestion": "subCategory",
+            "editComponent": "ComboBox"
+        },
+        "name": {
+            "label": "ItemName",
+            "importence": "MEDIUM",
+            "component": "Text",
+            "editComponent": "Input"
+        },
+        "status": {
+            "label": "Status",
+            "importence": "MEDIUM",
+            "component": "ObjectStatus",
+            "criticality": "state",
+            "suggestion": "status",
+            "editComponent": "ComboBox"
+        },
+        "description": {
+            "itemProperties": {
+                "label": "Item Properties",
+                "importence": "MEDIUM",
+                "component": "Text",
+                "editComponent": "Input"
+            },
+            "sellerName": {
+                "label": "Seller Name",
+                "importence": "MEDIUM",
+                "component": "Text",
+                "editComponent": "Input"
+            },
+            "disclaimer": {
+                "label": "disclaimer",
+                "importence": "MEDIUM",
+                "component": "Text",
+                "editComponent": "Input"
+            }
+        },
+        "itemAvailabilities": {
+            "id": {
+                "label": "id",
+                "importence": "HIGH",
+                "component": "Label"
+            },
+            "actualPrice": {
+                "label": "actualPrice",
+                "importence": "HIGH",
+                "component": "Label"
+            },
+            "discountPrice": {
+                "label": "discountPrice",
+                "importence": "HIGH",
+                "component": "Label"
+            },
+            "value": {
+                "label": "value",
+                "importence": "MEDIUM",
+                "component": "Label"
+            },
+            "unit": {
+                "label": "unit",
+                "importence": "MEDIUM",
+                "component": "Label"
+            },
+            "available": {
+                "label": "available",
+                "importence": "MEDIUM",
+                "component": "ObjectStatus",
+                "criticality": "state"
+            }
+        }
+    },
+    "metadata": {
+        "id": "",
+        "categoryId": "",
+        "subCategoryId": "",
+        "name": "",
+        "status": "",
+        "state": "",
+        "itemAvailabilities": [
+            {
+                "id": "",
+                "itemId": "",
+                "actualPrice": "",
+                "discount": "",
+                "discountPrice": "",
+                "value": "",
+                "unit": "",
+                "available": "",
+                "state": ""
+            }
+        ],
+        "defaultImage": "",
+        "description": {
+            "itemProperties": "",
+            "sellerName": "",
+            "disclaimer": ""
+        },
+        "imageLinks": {
+            "image": [
+                "",
+                ""
+            ],
+            "default": ""
+        }
+    },
+    "data": {
+        "id": 2,
+        "categoryId": 4,
+        "subCategoryId": 3,
+        "name": "sunfeast dark fantacy",
+        "status": "Active",
+        "state": "Success",
+        "itemAvailabilities": [
+            {
+                "id": 12,
+                "itemId": 5,
+                "actualPrice": 80,
+                "discount": 5,
+                "discountPrice": 76,
+                "value": 1,
+                "unit": "PC",
+                "available": "Y",
+                "state": "Success"
+            },
+            {
+                "id": 14,
+                "itemId": 5,
+                "actualPrice": 240,
+                "discount": 8,
+                "discountPrice": 221,
+                "value": 3,
+                "unit": "PC",
+                "available": "N",
+                "state": "Error"
+            }
+        ],
+        "defaultImage": "http://res.cloudinary.com/dsywyhhdl/image/upload/v1586975422/psumsthbzigdqwpt4nsq.jpg",
+        "description": {
+            "itemProperties": "best for 4 months contains 30% protein",
+            "sellerName": "nescafe",
+            "disclaimer": "good for all age"
+        },
+        "imageLinks": {
+            "image": [
+                "http://res.cloudinary.com/dsywyhhdl/image/upload/v1586975422/psumsthbzigdqwpt4nsq.jpg",
+                "http://res.cloudinary.com/dsywyhhdl/image/upload/v1586975423/fw3pefisxrjpzw9lubrc.jpg"
+            ],
+            "default": "1"
+        }
+    }
+}

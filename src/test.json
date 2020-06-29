@@ -1,0 +1,83 @@
+{
+    "header": {
+        "headerContent": {
+            "field": [
+                "categoryId"
+            ]
+        },
+        "keyInfos": {
+            "field": []
+        },
+        "title": "name",
+        "subTitle": "id",
+        "image": "imageLink",
+        "headerActions": []
+    },
+    "action": {
+        "updateEnabled": "true",
+        "deleteEnabled": "true"
+    },
+    "facet": [
+        {
+            "label": "General Information",
+            "id": "GeneralInfo",
+            "type": "fieldGroup",
+            "field": [
+                "id",
+                "name",
+                "description",
+                "subCategoryId",
+                "categoryId"
+            ]
+        }
+    ],
+    "suggestion": {
+        "category": [
+            {
+                "key": "1",
+                "value": "Grocerry"
+            },
+            {
+                "key": "3",
+                "value": "Book"
+            },
+            {
+                "key": "4",
+                "value": "Nuts"
+            }
+        ]
+    },
+    "property": {
+        "id": {
+            "label": "CategoryID",
+            "importence": "HIGH",
+            "component": "Label",
+            "key": "true",
+            "readOnly": "true",
+            "editComponent": "Input"
+        },
+        "imageLink": {
+            "label": "Image",
+            "importence": "HIGH",
+            "component": "Avatar"
+        },
+        "categoryId": {
+            "label": "Category ID",
+            "importence": "MEDIUM",
+            "component": "Text",
+            "suggestion": "category",
+            "editComponent": "ComboBox"
+        },
+        "name": {
+            "label": "CategoryName",
+            "importence": "HIGH",
+            "component": "Text",
+            "editComponent": "Input"
+        },
+        "description": {
+            "label": "Description",
+            "importence": "MEDIUM",
+            "component": "Avatar"
+        }
+    }
+}

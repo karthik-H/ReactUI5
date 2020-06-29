@@ -3,10 +3,11 @@ import {
     Label,
     Avatar,
     AvatarShape,
-    ObjectStatus
+    ObjectStatus,
+    Text
 } from '@ui5/webcomponents-react'
 
-export default function GenerateCustomComponent(props) {
+export default function CustomColumnItem(props) {
     const value = props.value;
     switch (props.property.component) {
         case "Avatar":
@@ -19,6 +20,10 @@ export default function GenerateCustomComponent(props) {
         case "ObjectStatus":
             return (
                 <ObjectStatus state={props.criticality}> {value}</ObjectStatus>
+            );
+        case "Text":
+            return (
+                <Text wrap={true}>{value}</Text>
             );
         default:
             return (

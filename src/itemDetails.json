@@ -1,0 +1,45 @@
+{
+    "id": 2,
+    "categoryId": 4,
+    "subCategoryId": 3,
+    "name": "sunfeast dark fantacy",
+    "status": "Active",
+    "state": "Success",
+    "itemAvailabilities": [
+        {
+            "id": 12,
+            "itemId": 5,
+            "actualPrice": 80,
+            "discount": 5,
+            "discountPrice": 76,
+            "value": 1,
+            "unit": "PC",
+            "available": "Y",
+            "state": "Success"
+        },
+        {
+            "id": 14,
+            "itemId": 5,
+            "actualPrice": 240,
+            "discount": 8,
+            "discountPrice": 221,
+            "value": 3,
+            "unit": "PC",
+            "available": "N",
+            "state": "Error"
+        }
+    ],
+    "defaultImage": "http://res.cloudinary.com/dsywyhhdl/image/upload/v1586975422/psumsthbzigdqwpt4nsq.jpg",
+    "description": {
+        "itemProperties": "best for 4 months contains 30% protein",
+        "sellerName": "nescafe",
+        "disclaimer": "good for all age"
+    },
+    "imageLinks": {
+        "image": [
+            "http://res.cloudinary.com/dsywyhhdl/image/upload/v1586975422/psumsthbzigdqwpt4nsq.jpg",
+            "http://res.cloudinary.com/dsywyhhdl/image/upload/v1586975423/fw3pefisxrjpzw9lubrc.jpg"
+        ],
+        "default": "1"
+    }
+}

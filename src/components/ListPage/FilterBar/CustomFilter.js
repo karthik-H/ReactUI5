@@ -6,7 +6,7 @@ import {
 } from '@ui5/webcomponents-react'
 import CustomSearch from './CustomSearch';
 import { spacing } from '@ui5/webcomponents-react-base';
-import CustomFilterItem from './CustomFilterItem';
+import CustomFieldItem from '../../CustomFieldItem.js'
 
 export default function CustomFilter(props) {
     const searchProps = props.search;
@@ -30,10 +30,10 @@ export default function CustomFilter(props) {
         >
             {
                 filterProps.map(filter => (
-                    <CustomFilterItem label={filter.label === undefined ? filter.field : filter.label}
-                        component={filter.component}
-                        field={filter.field}
-                        suggestion={suggestion[filter.suggestion]}
+                    <CustomFieldItem label={props.property[filter].label === undefined ? filter : props.property[filter].label}
+                        component={props.property[filter].editComponent}
+                        field={filter}
+                        suggestion={suggestion[props.property[filter].suggestion]}
                         onFilterChange={props.onFilterChange} />
                 ))
             }

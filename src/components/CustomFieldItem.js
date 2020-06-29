@@ -9,7 +9,7 @@ import {
     FilterType
 } from '@ui5/webcomponents-react';
 
-export default function CustomFilterItem(props) {
+export default function CustomFieldItem(props) {
 
     // if(props.filterProps === undefined) {
     //     return(<> </>);
@@ -25,7 +25,8 @@ export default function CustomFilterItem(props) {
     const component = props.component;
     const suggestion = props.suggestion === undefined ? [] : props.suggestion;
     const field = props.field;
-
+    const value = props.value === undefined ? "" : props.value;
+    console.log("sugg", suggestion)
     switch (component) {
         case "MultiComboBox":
             return (
@@ -37,6 +38,7 @@ export default function CustomFilterItem(props) {
                     <MultiComboBox
                         allowCustomValues={true}
                         id={field}
+                        value={value}
                         onSelectionChange={props.onFilterChange
                         }
                     >
@@ -61,6 +63,7 @@ export default function CustomFilterItem(props) {
                         id={field}
                         onChange={props.onFilterChange
                         }
+                        value={value}
                     >
                         {
                             suggestion.map(suggestion => (
@@ -79,6 +82,7 @@ export default function CustomFilterItem(props) {
                 >
                     <Input id={field}
                         showSuggestions={false}
+                        value={value}
                         onChange={props.onFilterChange}
                     >
                     </Input>

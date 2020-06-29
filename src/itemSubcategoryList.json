@@ -1,0 +1,16 @@
+[
+    {
+        "id": 3,
+        "categoryId": 2,
+        "name": "charger",
+        "description": "upto 10%off",
+        "imageLink": "http://res.cloudinary.com/dsywyhhdl/image/upload/v1586797439/phpkybyao4jodv7vput4.jpg"
+    },
+    {
+        "id": 4,
+        "categoryId": 2,
+        "name": "charger",
+        "description": "upto 10%off",
+        "imageLink": "http://res.cloudinary.com/dsywyhhdl/image/upload/v1586798434/uf5lkz5jc6r1tgljojw5.jpg"
+    }
+]
