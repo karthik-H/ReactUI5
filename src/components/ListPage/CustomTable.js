@@ -10,11 +10,12 @@ import CustomRow from './CustomRow'
 export default function CustomTable(props) {
     const data = props.tableData;
     const property = props.property;
-    const tempcolumnData = [];
-    for (let key in property) {
-        tempcolumnData.push(key);
-    }
-    const [columnData, setColumnData] = useState(tempcolumnData);
+    // const tempcolumnData = [];
+    // for (let key in property) {
+    //     tempcolumnData.push(key);
+    // }
+    let columnData = props.listPage === undefined ? [] : props.listPage;
+    // const [columnData, setColumnData] = useState(tempcolumnData);
     return (
         <Table
             noDataText={'no Items avaialble'}

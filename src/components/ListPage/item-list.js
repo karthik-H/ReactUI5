@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 import LuigiClient, {
-    addInitListener
+    addInitListener,
+    addContextUpdateListener
 } from '@luigi-project/client';
 import Luigi from '@luigi-project/core/luigi';
 import CustomTable from './CustomTable'
@@ -10,20 +11,26 @@ import CustomFilter from './FilterBar/CustomFilter'
 import '@ui5/webcomponents/dist/features/InputSuggestions.js'
 import getFieldValue from '../../functions/getFieldValue'
 import { spacing } from '@ui5/webcomponents-react-base';
+import itemDetailsList from '../../itemDetailsList.json';
+import itemCategoryList from '../../itemCategoryList.json';
+import itemSubCategoryList from '../../itemSubcategoryList.json';
+import annotation from '../../annotation/annotation.json';
 // import data from '../../item-details.json';
 export default function ItemList(props) {
 
     const [context, setContext] = useState("");
     const [entityData, setEntityData] = useState([]);
-    // const [property, setProperty] = useState({});
+    const [property, setProperty] = useState({});
     const [filterProps, setFilterProps] = useState([]);
     const [searchProps, setSearchProps] = useState({});
     const [suggestion, setSuggestion] = useState({});
     const [action, setAction] = useState({});
+    const [listPage, setListPage] = useState([]);
     const data = props.data;
+    // const listPage = props.data.listPage;
     // const searchProps = data.search;
     // const filterProps = data.filter;
-    const property = data.property;
+    // const property = data.property;
     // const entityData = data.data;
     // const suggestion = data.suggestion;
     // const action = data.action;
@@ -31,20 +38,40 @@ export default function ItemList(props) {
 
     useEffect(() => {
         const initListener = addInitListener((e) => {
-            setContext(LuigiClient.getContext().parentNavigationContexts[0]);
+            setContext(LuigiClient.getContext().parentNavigationContexts === undefined ?
+                "" :
+                LuigiClient.getContext().parentNavigationContexts[0]);
             console.log("context", LuigiClient.getContext().parentNavigationContexts[0]);
         }
         );
+        const updateListener = addContextUpdateListener((e) => {
+            setContext(LuigiClient.getContext().parentNavigationContexts === undefined ?
+                "" :
+                LuigiClient.getContext().parentNavigationContexts[0]);
+            console.log("update", context);
+        })
 
     }, []);
 
     useEffect(() => {
-        // setProperty(data.property);
-        setEntityData(data.data);
-        setSearchProps(data.search);
-        setFilterProps(data.filter);
-        setSuggestion(data.suggestion);
-        setAction(data.action);
+        if (annotation[context] !== undefined) {
+            console.log(annotation[context], "prps")
+
+            // setProperty(data.property);
+            setListPage(annotation[context].listPage);
+            setProperty(annotation[context].property);
+            if (context === "itemDetails") {
+                setEntityData(itemDetailsList);
+            } else if (context === "itemCategory") {
+                setEntityData(itemCategoryList);
+            } else if (context === "itemSubcategory") {
+                setEntityData(itemSubCategoryList);
+            }
+            setSearchProps(annotation[context].search);
+            setFilterProps(annotation[context].filter);
+            setSuggestion(annotation[context].suggestion);
+            setAction(annotation[context].action);
+        }
     }, [context])
 
     const onRowClick = (e) => {
@@ -110,7 +137,8 @@ export default function ItemList(props) {
                     }
                 </FlexBox>
 
-                <CustomTable tableData={entityData} property={property} onRowClick={onRowClick} />
+                <CustomTable tableData={entityData} property={property} onRowClick={onRowClick}
+                    listPage={listPage} />
             </section>
         </div >
 

@@ -12,6 +12,14 @@
             "status",
             "id"
         ],
+        "listPage": [
+            "id",
+            "imageLinks",
+            "name",
+            "categoryId",
+            "subCategoryId",
+            "status"
+        ],
         "header": {
             "headerContent": {
                 "field": [
@@ -248,6 +256,18 @@
         }
     },
     "itemCategory": {
+        "search": {
+            "label": "Search by ID or Name",
+            "field": [
+                "id",
+                "name"
+            ]
+        },
+        "listPage": [
+            "id",
+            "imageLink",
+            "name"
+        ],
         "header": {
             "headerContent": {
                 "field": []
@@ -311,6 +331,22 @@
         }
     },
     "itemSubcategory": {
+        "search": {
+            "label": "Search by ID or Name",
+            "field": [
+                "id",
+                "name"
+            ]
+        },
+        "filter": [
+            "categoryId"
+        ],
+        "listPage": [
+            "id",
+            "imageLink",
+            "name",
+            "categoryId"
+        ],
         "header": {
             "headerContent": {
                 "field": [
@@ -326,6 +362,7 @@
             "headerActions": []
         },
         "action": {
+            "CreateEnabled": "true",
             "updateEnabled": "true",
             "deleteEnabled": "true"
         },
@@ -360,7 +397,7 @@
         },
         "property": {
             "id": {
-                "label": "CategoryID",
+                "label": "SubCategory ID",
                 "importence": "HIGH",
                 "component": "Label",
                 "key": "true",
@@ -377,16 +414,16 @@
                 "importence": "MEDIUM",
                 "component": "Text",
                 "suggestion": "category",
-                "editComponent": "ComboBox"
+                "editComponent": "MultiComboBox"
             },
             "name": {
-                "label": "CategoryName",
+                "label": "SubCategory Name",
                 "importence": "HIGH",
                 "component": "Text",
                 "editComponent": "Input"
             },
             "description": {
-                "label": "Description",
+                "label": "SubCategory Description",
                 "importence": "MEDIUM",
                 "component": "Input",
                 "editComponent": "Input"

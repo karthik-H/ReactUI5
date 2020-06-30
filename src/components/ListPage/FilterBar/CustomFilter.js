@@ -12,8 +12,7 @@ export default function CustomFilter(props) {
     const searchProps = props.search;
     const filterProps = props.filter === undefined ? [] : props.filter;
     const suggestion = props.suggestion;
-
-    if (props.search === undefined && props.filter === undefined) {
+    if (Object.keys(props.property).length <= 0 || props.search === undefined && props.filter === undefined) {
         return (
             <>
             </>

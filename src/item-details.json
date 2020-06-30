@@ -6,6 +6,11 @@
             "name"
         ]
     },
+    "listPage": [
+        "id",
+        "status",
+        "categoryId"
+    ],
     "filter": [
         "categoryId",
         "status",
