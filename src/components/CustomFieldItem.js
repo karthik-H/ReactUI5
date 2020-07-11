@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     ComboBox,
     ComboBoxItem,
@@ -8,6 +8,7 @@ import {
     FilterItem,
     FilterType
 } from '@ui5/webcomponents-react';
+import axios from 'axios';
 
 export default function CustomFieldItem(props) {
 
@@ -23,10 +24,21 @@ export default function CustomFieldItem(props) {
     // }
     const label = props.label;
     const component = props.component;
-    const suggestion = props.suggestion === undefined ? [] : props.suggestion;
+    const [suggestion, setSuggestion] = useState([]);
+    // let suggestion = [];
+    // const suggestion = props.suggestion === undefined ? [] : props.suggestion;
     const field = props.field;
     const value = props.value === undefined ? "" : props.value;
     console.log("sugg", suggestion)
+    useEffect(() => {
+        if (props.suggestion !== undefined && props.suggestion.valueType === "constant") {
+            setSuggestion(...suggestion, props.suggestion.value);
+        } else if (props.suggestion !== undefined && props.suggestion.valueType === "standard") {
+            axios.get(`${process.env.REACT_APP_DOMAIN}${props.suggestion.value}`).then((data) => {
+                setSuggestion(...suggestion, data.data);
+            })
+        }
+    }, [])
     switch (component) {
         case "MultiComboBox":
             return (

@@ -7,9 +7,9 @@ import {
 import CustomColumnItem from '../CustomColumnItem.js'
 
 export default function CustomRow(props) {
+    // debugger;
     const rows = props.rowData === undefined ? [] : props.rowData;
     const getCriticality = (columnName, row) => {
-        debugger;
         return row[props.property[columnName].criticality];
     }
     return (

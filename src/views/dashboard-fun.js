@@ -30,7 +30,7 @@ import "@ui5/webcomponents-icons/dist/icons/table-view.js";
 import "@ui5/webcomponents-icons/dist/icons/phone.js";
 import "@ui5/webcomponents-icons/dist/icons/calendar.js";
 import "@ui5/webcomponents-icons/dist/icons/history.js";
-
+import '@ui5/webcomponents/dist/Timeline';
 
 import '../../node_modules/fundamental-styles/dist/fundamental-styles.css';
 import '../style/card-style.css'

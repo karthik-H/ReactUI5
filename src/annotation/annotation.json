@@ -1,16 +1,16 @@
 {
     "itemDetails": {
         "search": {
-            "label": "Search by ID or Name",
+            "label": "Search by ID",
             "field": [
-                "id",
-                "name"
+                "_id"
             ]
         },
         "filter": [
             "categoryId",
+            "subCategoryId",
             "status",
-            "id"
+            "name"
         ],
         "listPage": [
             "id",
@@ -56,7 +56,8 @@
                     "id",
                     "name",
                     "categoryId",
-                    "subCategoryId"
+                    "subCategoryId",
+                    "status"
                 ]
             },
             {
@@ -85,44 +86,27 @@
             }
         ],
         "suggestion": {
-            "category": [
-                {
-                    "key": "1",
-                    "value": "Grocerry"
-                },
-                {
-                    "key": "3",
-                    "value": "Book"
-                },
-                {
-                    "key": "4",
-                    "value": "Nuts"
-                }
-            ],
-            "subCategory": [
-                {
-                    "key": "1",
-                    "value": "rice"
-                },
-                {
-                    "key": "3",
-                    "value": "oil"
-                },
-                {
-                    "key": "4",
-                    "value": "wheet"
-                }
-            ],
-            "status": [
-                {
-                    "key": "1",
-                    "value": "Active"
-                },
-                {
-                    "key": "2",
-                    "value": "InActive"
-                }
-            ]
+            "category": {
+                "valueType": "standard",
+                "value": "/admin/itemCategory?key=_id&value=name"
+            },
+            "subCategory": {
+                "valueType": "standard",
+                "value": "/admin/itemSubcategory?key=_id&value=name"
+            },
+            "status": {
+                "valueType": "constant",
+                "value": [
+                    {
+                        "key": "Active",
+                        "value": "Active"
+                    },
+                    {
+                        "key": "InActive",
+                        "value": "InActive"
+                    }
+                ]
+            }
         },
         "property": {
             "id": {
@@ -143,14 +127,18 @@
                 "importence": "LOW",
                 "component": "Label",
                 "suggestion": "category",
-                "editComponent": "ComboBox"
+                "editComponent": "ComboBox",
+                "filterComponent": "MultiComboBox",
+                "textAssociation": "categoryName"
             },
             "subCategoryId": {
                 "label": "SubCategory",
                 "importence": "LOW",
                 "component": "Label",
                 "suggestion": "subCategory",
-                "editComponent": "ComboBox"
+                "editComponent": "ComboBox",
+                "filterComponent": "MultiComboBox",
+                "textAssociation": "subCategoryName"
             },
             "name": {
                 "label": "ItemName",
@@ -164,7 +152,8 @@
                 "component": "ObjectStatus",
                 "criticality": "state",
                 "suggestion": "status",
-                "editComponent": "ComboBox"
+                "editComponent": "ComboBox",
+                "filterComponent": "ComboBox"
             },
             "description": {
                 "itemProperties": {
@@ -240,29 +229,23 @@
                     "state": ""
                 }
             ],
-            "defaultImage": "",
             "description": {
                 "itemProperties": "",
                 "sellerName": "",
                 "disclaimer": ""
-            },
-            "imageLinks": {
-                "image": [
-                    "",
-                    ""
-                ],
-                "default": ""
             }
         }
     },
     "itemCategory": {
         "search": {
-            "label": "Search by ID or Name",
+            "label": "Search by ID",
             "field": [
-                "id",
-                "name"
+                "_id"
             ]
         },
+        "filter": [
+            "name"
+        ],
         "listPage": [
             "id",
             "imageLink",
@@ -334,12 +317,12 @@
         "search": {
             "label": "Search by ID or Name",
             "field": [
-                "id",
-                "name"
+                "_id"
             ]
         },
         "filter": [
-            "categoryId"
+            "categoryId",
+            "name"
         ],
         "listPage": [
             "id",
@@ -380,20 +363,10 @@
             }
         ],
         "suggestion": {
-            "category": [
-                {
-                    "key": "1",
-                    "value": "Grocerry"
-                },
-                {
-                    "key": "3",
-                    "value": "Book"
-                },
-                {
-                    "key": "4",
-                    "value": "Nuts"
-                }
-            ]
+            "category": {
+                "valueType": "standard",
+                "value": "/admin/itemCategory?key=_id&value=name"
+            }
         },
         "property": {
             "id": {
@@ -435,6 +408,124 @@
             "name": "",
             "categoryId": "",
             "description": ""
+        }
+    },
+    "itemAvailability": {
+        "header": {
+            "headerContent": {
+                "field": []
+            },
+            "keyInfos": {
+                "field": []
+            },
+            "title": "id",
+            "subTitle": "available",
+            "headerActions": [
+                {
+                    "type": "CustomAvailabilityAction",
+                    "id": "customAvlAction",
+                    "url": "/markItAvailable"
+                }
+            ]
+        },
+        "action": {
+            "updateEnabled": "true",
+            "deleteEnabled": "false",
+            "CreateEnabled": "true"
+        },
+        "facet": [
+            {
+                "label": "General Information",
+                "id": "GeneralInfo",
+                "type": "fieldGroup",
+                "field": [
+                    "id",
+                    "itemId",
+                    "available"
+                ]
+            },
+            {
+                "label": "Pricing",
+                "id": "Pricing",
+                "type": "fieldGroup",
+                "field": [
+                    "actualPrice",
+                    "discount",
+                    "discountPrice",
+                    "value",
+                    "unit"
+                ]
+            }
+        ],
+        "listPage": [
+            "id",
+            "actualPrice",
+            "discountPrice",
+            "value",
+            "unit",
+            "available"
+        ],
+        "property": {
+            "id": {
+                "label": "id",
+                "importence": "HIGH",
+                "key": "true",
+                "component": "Label",
+                "editComponent": "Input"
+            },
+            "itemId": {
+                "label": "Item Id",
+                "importence": "HIGH",
+                "component": "Label",
+                "editComponent": "Input"
+            },
+            "actualPrice": {
+                "label": "actualPrice",
+                "importence": "HIGH",
+                "component": "Label",
+                "editComponent": "Input"
+            },
+            "discountPrice": {
+                "label": "discountPrice",
+                "importence": "HIGH",
+                "component": "Label",
+                "editComponent": "Input"
+            },
+            "discount": {
+                "label": "discount",
+                "importence": "HIGH",
+                "component": "Label",
+                "editComponent": "Input"
+            },
+            "value": {
+                "label": "value",
+                "importence": "MEDIUM",
+                "component": "Label",
+                "editComponent": "Input"
+            },
+            "unit": {
+                "label": "unit",
+                "importence": "MEDIUM",
+                "component": "Label",
+                "editComponent": "Input"
+            },
+            "available": {
+                "label": "available",
+                "importence": "MEDIUM",
+                "component": "ObjectStatus",
+                "criticality": "state",
+                "editComponent": "Input"
+            }
+        },
+        "metadata": {
+            "id": "",
+            "itemId": "",
+            "actualPrice": "",
+            "discount": "",
+            "discountPrice": "",
+            "value": "",
+            "unit": "",
+            "available": ""
         }
     }
 }

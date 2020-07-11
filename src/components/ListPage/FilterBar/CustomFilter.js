@@ -30,9 +30,10 @@ export default function CustomFilter(props) {
             {
                 filterProps.map(filter => (
                     <CustomFieldItem label={props.property[filter].label === undefined ? filter : props.property[filter].label}
-                        component={props.property[filter].editComponent}
+                        component={props.property[filter].filterComponent}
                         field={filter}
-                        suggestion={suggestion[props.property[filter].suggestion]}
+                        suggestion={suggestion === undefined ? [] :
+                            suggestion[props.property[filter].suggestion]}
                         onFilterChange={props.onFilterChange} />
                 ))
             }

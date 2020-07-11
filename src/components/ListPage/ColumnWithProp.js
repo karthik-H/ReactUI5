@@ -1,5 +1,7 @@
 import React from 'react';
 
+import '@ui5/webcomponents/dist/TableColumn';
+
 export default function ColumnWithProp(props) {
     const property = props.property;
     const label = property.label === undefined ? props.columnName : property.label;

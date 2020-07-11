@@ -39,7 +39,7 @@ Luigi.setConfig({
               collapsible: true
             },
             navigationContext: 'itemCategory',
-            pathSegment: 'itemCategory',
+            pathSegment: '#itemCategory',
             viewUrl: '/sampleapp.html#/item-list'
           },
           {
@@ -52,6 +52,18 @@ Luigi.setConfig({
             },
             navigationContext: 'itemSubcategory',
             pathSegment: 'itemSubcategory',
+            viewUrl: '/sampleapp.html#/item-list'
+          },
+          {
+            viewGroup: 'item',
+            hideSideNav: true,
+            category: {
+              label: 'Item Info',
+              icon: 'blank-tag-2',
+              collapsible: true
+            },
+            navigationContext: 'itemAvailability',
+            pathSegment: 'itemAvailability',
             viewUrl: '/sampleapp.html#/item-list'
           },
           {
@@ -117,6 +129,9 @@ Luigi.setConfig({
         ]
       }
     ]
+  },
+  routing: {
+    useHashRouting: true
   },
   settings: {
     header: {

@@ -25,13 +25,13 @@ export default function CustomFacet(props) {
     const property = association === undefined ?
         props.property :
         props.property[association];
-    // debugger;
-    const entity = props.entity === undefined ? [] : association === undefined ?
-        props.entity :
-        props.entity[association];
+    const entity = props.entity === undefined || Object.keys(props.entity).length <= 0 ?
+        [] :
+        association === undefined ?
+            props.entity :
+            props.entity[association];
 
     const suggestion = props.suggestion;
-
     const imageUploadpopoverRef = props.imageUploadpopoverRef;
     if (property === undefined || Object.keys(property).length < 1) {
         return (
@@ -66,7 +66,10 @@ export default function CustomFacet(props) {
                                 <div>
                                     {
                                         editStatus === "Edit" ?
-                                            (<Text >{entity[field]}</Text>) :
+                                            (<Text >{entity === null || entity === undefined ? "" :
+                                                entity[property[field].textAssociation === undefined ?
+                                                    field :
+                                                    property[field].textAssociation]}</Text>) :
                                             property[field].readOnly === undefined ?
                                                 (<CustomFieldItem
                                                     label={property[field].label === undefined ? field : property[field].label}
@@ -75,7 +78,7 @@ export default function CustomFacet(props) {
                                                         {} :
                                                         props.suggestion[property[field].suggestion]}
                                                     field={association === undefined ? field : `${association}.${field}`}
-                                                    value={entity === undefined ? "" : entity[field]}
+                                                    value={entity === null || entity === undefined ? "" : entity[field]}
                                                     onFilterChange={props.onInputChange}
                                                 />)
                                                 // (<Input value={entity[field]} />) 
@@ -85,7 +88,10 @@ export default function CustomFacet(props) {
                                                         <div>
                                                             <Label >{property[field].label === undefined ? field : property[field].label}</Label>
                                                         </div>
-                                                        <Text label={"a"}>{entity[field]}</Text>
+                                                        <Text label={"a"}>{entity === null || entity === undefined ? "" :
+                                                            entity[property[field].textAssociation === undefined ?
+                                                                field :
+                                                                property[field].textAssociation]}</Text>
                                                     </>
                                                 )
                                         // property[field].key
@@ -103,7 +109,7 @@ export default function CustomFacet(props) {
                 data["data"] = entity
                 console.log("data", data)
                 return (
-                    <ItemList data={data} />
+                    <ItemList data={entity} context="itemAvailability" />
                 );
             case "imageLinks":
                 return (

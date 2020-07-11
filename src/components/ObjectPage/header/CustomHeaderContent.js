@@ -11,7 +11,6 @@ export default function CustomHeaderContent(props) {
     const fields = props.headerContent === undefined ? undefined : props.headerContent.field;
     const property = props.property;
     const entity = props.entity;
-    console.log(property["name"])
     if (fields === undefined || Object.keys(property).length <= 0) {
         return (<> </>);
     }
@@ -24,7 +23,10 @@ export default function CustomHeaderContent(props) {
                             <Label>{property[field].label === undefined ?
                                 property[field].field :
                                 property[field].label}</Label>
-                            <CustomColumnItem value={entity[field]} property={property[field]}
+                            <CustomColumnItem value={entity[property[field].textAssociation === undefined ?
+                                field :
+                                property[field].textAssociation]}
+                                property={property[field]}
                                 criticality={property[field].criticality !== undefined ?
                                     entity[property[field].criticality] :
                                     undefined} />

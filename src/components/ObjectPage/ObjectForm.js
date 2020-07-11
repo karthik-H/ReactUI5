@@ -24,7 +24,7 @@ import {
     PopoverVerticalAlign
 } from '@ui5/webcomponents-react'
 
-import { spacing } from '@ui5/webcomponents-react-base'
+import { spacing, usePassThroughHtmlProps } from '@ui5/webcomponents-react-base'
 import '../../style/sap-icons.css'
 import { sapUiTinyMargin } from '@ui5/webcomponents-react-base/lib/spacing';
 import "@ui5/webcomponents-icons/dist/icons/upload.js";
@@ -43,26 +43,35 @@ import annotation from '../../annotation/annotation.json';
 import useConstructor from '../CustomHooks/useConstructor.js';
 
 import getFieldValue from '../../functions/getFieldValue.js'
-
+import axios from 'axios';
 import "@ui5/webcomponents-icons/dist/icons/decline.js";
 const ObjectForm = () => {
 
     // let formType = "";
     const [formType, setFormType] = useState("");
     const [formAction, setFormAction] = useState("");
+    const [pathValue, setPathValue] = useState("");
+    const [previousOperation, setPreviousOperation] = useState("");
     const [EditSaveButton, setEditSaveButton] = useState("Edit");
     const [id, setId] = useState("");
     const filesRef = useRef({});
     let isDirty = false;
     const [header, setHeader] = useState({});
+    //header custom action
     const [actions, setActions] = useState([]);
 
     const [property, setProperty] = useState({});
     const [suggestion, setSuggestion] = useState({});
     const [entity, setEntity] = useState({});
     const [facets, setFacets] = useState([]);
+    //default action - create, update & delete
     const [defaultAction, setDefaultAction] = useState({});
-    // const defaultAction = data.action;
+    const [formData, setFormData] = useState({});
+    const dataLoadIssueMessage = {
+        text: "unable to load Data, check your internet connection once",
+        type: "error",
+        closeAfter: 3000
+    }
     const setFileState = (data) => {
         filesRef.current = data;
     }
@@ -71,26 +80,47 @@ const ObjectForm = () => {
         delete temp[i];
         setFileState(temp);
     }
+
     useEffect(() => {
-        // debugger;
-        let dataset = "";
-        if (formType === "itemDetails") {
-            dataset = itemDetails;
-        } else if (formType === "itemCategory") {
-            dataset = itemCategory;
-        } else if (formType === "itemSubcategory") {
-            dataset = itemSubcategory;
+        debugger;
+        // let dataset = "";
+        if (pathValue !== "" && pathValue != "id" && formType !== "" && previousOperation !== "Create") {
+            console.log(`${process.env.REACT_APP_DOMAIN}/admin/${formType}/${pathValue}`);
+            axios.get(`${process.env.REACT_APP_DOMAIN}/admin/${formType}/${pathValue}`)
+                .then((data) => {
+                    setEntity(data.data);
+                    LuigiClient.uxManager().hideLoadingIndicator();
+                    // category = data.data;
+                }).catch((err) => {
+                    LuigiClient.uxManager().hideLoadingIndicator();
+                    LuigiClient.uxManager().showAlert(dataLoadIssueMessage);
+                    console.log("err", err);
+                });
         }
+        // if (formType === "itemDetails") {
+
+        //     dataset = itemDetails;
+        // } else if (formType === "itemCategory") {
+        //     dataset = itemCategory;
+        // } else if (formType === "itemSubcategory") {
+        //     dataset = itemSubcategory;
+        // }
         if (formAction === "Read") {
             // setHeader(data.header);
+            debugger;
             setHeader(annotation[formType].header);
+            setEditSaveButton("Edit");
             console.log("header", header);
-            setActions(annotation[formType].header.headerActions);
+            setActions(annotation[formType].header === undefined ?
+                [] :
+                annotation[formType].header.headerActions);
             setDefaultAction(annotation[formType].action);
             setProperty(annotation[formType].property);
             setSuggestion(annotation[formType].suggestion);
-            setEntity(dataset);
+            setFormData(annotation[formType].metadata);
+            // setEntity(dataset);
             setFacets(annotation[formType].facet === undefined ? [] : annotation[formType].facet);
+            setPreviousOperation("Read");
         } else if (formAction === "Create") {
             setDefaultAction(annotation[formType].action);
             setEditSaveButton("Save");
@@ -98,9 +128,9 @@ const ObjectForm = () => {
             setSuggestion(annotation[formType].suggestion);
             setEntity(annotation[formType].metadata);
             setFacets(annotation[formType].facet === undefined ? [] : annotation[formType].facet);
+            setFormData(annotation[formType].metadata);
         }
-
-    }, [formAction, formType])
+    }, [formAction, formType, pathValue])
     const initData = (obj) => {
         Object.keys(obj).map(key => {
             if (obj[key] === Object(obj[key])) {
@@ -115,11 +145,21 @@ const ObjectForm = () => {
     }
     useEffect(() => {
         const initListener = addInitListener((e) => {
+            console.log(LuigiClient);
             setFormType(LuigiClient.getNodeParams().type);
+            setPathValue(LuigiClient.getPathParams().id);
+            LuigiClient.uxManager().hideLoadingIndicator();
             // formType = LuigiClient.getNodeParams().type;
             setFormAction(LuigiClient.getNodeParams().action);
         }
         );
+        const updateListener = addContextUpdateListener((e) => {
+            debugger;
+            console.log(LuigiClient);
+            setFormType(LuigiClient.getNodeParams().type);
+            setPathValue(LuigiClient.getPathParams().id);
+            setFormAction(LuigiClient.getNodeParams().action);
+        })
 
     }, []);
 
@@ -127,10 +167,49 @@ const ObjectForm = () => {
     const onEditAction = () => {
         debugger;
         if (EditSaveButton === "Edit") {
+            setFormData(JSON.parse(JSON.stringify(annotation[formType].metadata)));
             setEditSaveButton("Save");
         } else {
+            if (isDirty) {
+                let method = "";
+                LuigiClient.uxManager().showLoadingIndicator();
+                if (pathValue === "id") {
+                    console.log(entity["id"]);
+                    //create
+                    method = "post";
+                } else {
+                    //edit
+                    method = "put"
+                    formData["id"] = entity["id"];
+                }
+                let bodyFormData = new FormData();
+                bodyFormData.append(formType, JSON.stringify(formData));
+                axios({
+                    method: method,
+                    url: `${process.env.REACT_APP_DOMAIN}/admin/${formType}`,
+                    data: bodyFormData,
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                })
+                    .then(function (response) {
+                        setEntity(response.data);
+                        setPathValue(response.data["id"]);
+                        setFormAction("Read");
+                        LuigiClient.uxManager().hideLoadingIndicator();
+                        console.log("response", response);
+                    })
+                    .catch(function (response) {
+                        debugger;
+                        const errorMessage = {
+                            text: response.message,
+                            type: "error",
+                            closeAfter: 3000
+                        }
+                        LuigiClient.uxManager().hideLoadingIndicator();
+                        LuigiClient.uxManager().showAlert(errorMessage);
+                    });
+                isDirty = false;
+            }
             setEditSaveButton("Edit");
-            isDirty = false;
         }
     }
 
@@ -140,32 +219,43 @@ const ObjectForm = () => {
     const onInputChange = (e) => {
         const parentID = e.target.id;
         const temp = parentID.split('.');
+        debugger;
         if (temp.length > 1) {
-            entity[temp[0]][temp[1]] = getFilterValue(e);
+            if (formData[temp[0]] === null) {
+                // entity[temp[0]] = {};
+                formData[temp[0]] = {};
+                // entity[temp[0]][temp[1]] = getFilterValue(e);
+                formData[temp[0]][temp[1]] = getFieldValue(e);
+            } else {
+                // entity[temp[0]][temp[1]] = getFilterValue(e);
+                formData[temp[0]][temp[1]] = getFieldValue(e);
+            }
         } else {
-            entity[parentID] = getFieldValue(e);
+            // entity[parentID] = getFieldValue(e);
+            formData[parentID] = getFieldValue(e);
         }
         // LuigiClient.uxManager().setDirtyStatus(true);
         isDirty = true;
     }
-    const getFilterValue = (e) => {
-        const component = e.target.nodeName;
-        switch (component) {
-            case "UI5-MULTI-COMBOBOX":
-                return (e.detail.items.map(item => item.id));
-            case "UI5-COMBOBOX":
-                const value = e.target.value;
-                const filteredItem = e.target.items.filter(item => item.text === value);
-                if (filteredItem.length > 0) {
-                    return (filteredItem[0].id);
-                }
-                break;
-            case "UI5-INPUT":
-                return (e.target.value);
-            default:
-                break;
-        }
-    }
+    // const getFilterValue = (e) => {
+    //     const component = e.target.nodeName;
+    //     debugger;
+    //     switch (component) {
+    //         case "UI5-MULTI-COMBOBOX":
+    //             return (e.detail.items.map(item => item.id));
+    //         case "UI5-COMBOBOX":
+    //             const value = e.target.value;
+    //             const filteredItem = e.target.items.filter(item => item.text === value);
+    //             if (filteredItem.length > 0) {
+    //                 return (filteredItem[0].id);
+    //             }
+    //             break;
+    //         case "UI5-INPUT":
+    //             return (e.target.value);
+    //         default:
+    //             break;
+    //     }
+    // }
 
     const renderImages = (files) => {
         const resultDiv = document.querySelector("#result");
@@ -325,7 +415,7 @@ const ObjectForm = () => {
                                     property={property}
                                     type={facet.type}
                                     imageUploadpopoverRef={ImageUploadpopoverRef}
-                                    editStatus={EditSaveButton} e
+                                    editStatus={EditSaveButton}
                                     entity={entity}
                                     // setEntity={setEntity}
                                     suggestion={suggestion}
