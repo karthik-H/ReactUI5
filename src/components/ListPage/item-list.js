@@ -145,7 +145,6 @@ export default function ItemList(props) {
             if (Array.isArray(filterValue[value])) {
                 filterValue[value].map(arrayValue => {
                     filter += `&filter=${value}+${arrayValue.operator}+(${formatFilterValue(arrayValue.operend)})`;
-
                 });
             } else {
                 filterValue[value].operend = formatFilterValue(filterValue[value].operend);
