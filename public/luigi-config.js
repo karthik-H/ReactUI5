@@ -88,43 +88,16 @@ Luigi.setConfig({
             loadingIndicator: {
               enabled: false
             },
-            viewUrl: '/sampleapp.html#/sample1'
+            viewUrl: '/sampleapp.html#/item-list'
           }, {
-            pathSegment: 'user-order-pending',
-            label: 'Pending UserOrder',
-            category: {
-              label: 'UserOrders',
-              icon: 'my-sales-order',
-              collapsible: true
-            },
+            pathSegment: 'userOrder',
+            label: 'User Order',
+            icon: 'my-sales-order',
+            navigationContext: 'userOrder',
             loadingIndicator: {
               enabled: false
             },
-            viewUrl: '/initializers.html#/sample2'
-          }, {
-            pathSegment: 'user-order-complete',
-            label: 'Completed UserOrder',
-            category: 'UserOrders',
-            loadingIndicator: {
-              enabled: false
-            },
-            viewUrl: '/initializers.html#/sample2'
-          }, {
-            pathSegment: 'user-order-cancel',
-            label: 'Cancelled UserOrder',
-            category: 'UserOrders',
-            loadingIndicator: {
-              enabled: false
-            },
-            viewUrl: '/initializers.html#/sample2'
-          }, {
-            pathSegment: 'user-order-approve',
-            label: 'Approve UserOrder',
-            category: 'UserOrders',
-            loadingIndicator: {
-              enabled: false
-            },
-            viewUrl: '/initializers.html#/sample2'
+            viewUrl: '/sampleapp.html#/item-list'
           }
         ]
       }

@@ -8,6 +8,8 @@ import {
     FilterItem,
     FilterType
 } from '@ui5/webcomponents-react';
+import { DatePicker } from 'fundamental-react';
+import "@ui5/webcomponents/dist/DateRangePicker";
 import axios from 'axios';
 
 export default function CustomFieldItem(props) {
@@ -37,6 +39,10 @@ export default function CustomFieldItem(props) {
             axios.get(`${process.env.REACT_APP_DOMAIN}${props.suggestion.value}`).then((data) => {
                 setSuggestion(...suggestion, data.data);
             })
+        }
+        const dateRange = document.getElementById(field);
+        if (dateRange) {
+            dateRange.addEventListener("change", props.onFilterChange);
         }
     }, [])
     switch (component) {
@@ -100,6 +106,27 @@ export default function CustomFieldItem(props) {
                     </Input>
                 </FilterItem>
 
+            );
+        case "DateRange":
+            return (
+                // <ui5-daterange-picker
+                //     id="mydaterange-picker1"
+                //     change={props.onFilterChange}>
+                // </ui5-daterange-picker>
+                // <ui5-date-picker id="myDatepicker1"></ui5-date-picker>
+                <FilterItem
+                    label={label}
+                    key={field}
+                    type={FilterType.Custom}
+                >
+                    <ui5-daterange-picker
+                        id={field}
+                    // readonly
+                    // onChange={props.onFilterChange}
+                    >
+                    </ui5-daterange-picker>
+                    {/* <DatePicker enableRangeSelection /> */}
+                </FilterItem>
             );
         default:
             return (<></>);

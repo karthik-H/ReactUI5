@@ -20,6 +20,12 @@ export default function getFieldValue(e) {
             break;
         case "UI5-INPUT":
             return (e.target.value);
+
+        case "UI5-DATERANGE-PICKER":
+            return ({
+                "firstValue": e.target.firstDateValue,
+                "lastValue": e.target.lastDateValue
+            });
         default:
             break;
     }

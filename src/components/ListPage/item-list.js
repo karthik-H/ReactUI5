@@ -9,7 +9,7 @@ import CustomTable from './CustomTable'
 import { Button, FlexBox, ButtonDesign } from '@ui5/webcomponents-react';
 import CustomFilter from './FilterBar/CustomFilter'
 import '@ui5/webcomponents/dist/features/InputSuggestions.js'
-import getFieldValue from '../../functions/getFieldValue'
+import getFilterValue from '../../functions/getFilterValue';
 import { spacing } from '@ui5/webcomponents-react-base';
 import itemDetailsList from '../../itemDetailsList.json';
 import itemCategoryList from '../../itemCategoryList.json';
@@ -20,6 +20,7 @@ import axios from 'axios';
 export default function ItemList(props) {
 
     const [context, setContext] = useState("");
+    const [parentID, setParentId] = useState("");
     const [entityData, setEntityData] = useState([]);
     const [property, setProperty] = useState({});
     const [filterProps, setFilterProps] = useState([]);
@@ -32,7 +33,7 @@ export default function ItemList(props) {
     const [filterValue, setFilterValue] = useState({});
     //error messages 
     const dataLoadIssueMessage = {
-        text: "unable to load Data, check your internet connection once",
+        text: "unable to load Data, list check your internet connection once",
         type: "error",
         closeAfter: 3000
     }
@@ -62,12 +63,18 @@ export default function ItemList(props) {
         }
         );
         const updateListener = addContextUpdateListener((e) => {
+            //check context is available from props 
             if (props.context !== undefined) {
                 setContext(props.context);
             } else {
                 setContext(LuigiClient.getContext().parentNavigationContexts === undefined ?
                     "" :
                     LuigiClient.getContext().parentNavigationContexts[0]);
+            }
+
+            //check parentID is available from props
+            if (props.parentID !== undefined) {
+                setParentId(props.parentID);
             }
         })
 
@@ -76,6 +83,7 @@ export default function ItemList(props) {
     useEffect(() => {
         if (context !== undefined && context !== "") {
             LuigiClient.uxManager().showLoadingIndicator();
+
             if (props.data !== undefined) {
                 setEntityData(props.data);
                 LuigiClient.uxManager().hideLoadingIndicator();
@@ -87,6 +95,7 @@ export default function ItemList(props) {
                         LuigiClient.uxManager().hideLoadingIndicator();
                         // category = data.data;
                     }).catch((err) => {
+                        debugger;
                         LuigiClient.uxManager().hideLoadingIndicator();
                         LuigiClient.uxManager().showAlert(dataLoadIssueMessage);
                         console.log("err", err);
@@ -131,15 +140,22 @@ export default function ItemList(props) {
     const onGoClick = (e) => {
         // subCategoryId+eq+{30,24}
         let filter = "?";
+        debugger;
         Object.keys(filterValue).map(value => {
-            filterValue[value] = filterValue[value].toString().replace(",", "~");
-            filterValue[value] = filterValue[value].toString().replace(" ", "_");
-            if (value === "searchBar") {
-                searchProps.field.map(search => {
-                    filter += `&filter=${search}+eq+(${filterValue[value]})`;
-                })
+            if (Array.isArray(filterValue[value])) {
+                filterValue[value].map(arrayValue => {
+                    filter += `&filter=${value}+${arrayValue.operator}+(${formatFilterValue(arrayValue.operend)})`;
+
+                });
             } else {
-                filter += `&filter=${value}+eq+(${filterValue[value]})`;
+                filterValue[value].operend = formatFilterValue(filterValue[value].operend);
+                if (value === "searchBar") {
+                    searchProps.field.map(search => {
+                        filter += `&filter=${search}+eq+(${filterValue[value].operend})`;
+                    });
+                } else {
+                    filter += `&filter=${value}+${filterValue[value].operator}+(${filterValue[value].operend})`;
+                }
             }
         })
         console.log(`${process.env.REACT_APP_DOMAIN}/admin/${context}${filter}`);
@@ -159,24 +175,34 @@ export default function ItemList(props) {
         console.log("GOOOOOOO", filter);
     }
 
+    const formatFilterValue = (filterValue) => {
+        filterValue = filterValue.toString().replace(",", "~");
+        filterValue = filterValue.toString().replace(" ", "_");
+        return (filterValue);
+    }
+
     const onFilterChange = (e) => {
-        const parentID = e.target.id;
+        debugger;
+        const DOMparentID = e.target.id;
         let tempFilter = filterValue;
-        let value = getFieldValue(e);
+        let value = getFilterValue(e);
         if (value === "") {
-            delete tempFilter[parentID]
+            delete tempFilter[DOMparentID]
         } else {
-            tempFilter[parentID] = value;
+            tempFilter[DOMparentID] = value;
         }
         setFilterValue(tempFilter);
-        // filterValue[parentID] = getFieldValue(e);
         console.log(filterValue);
     }
     const onCreate = (e) => {
         let link = "";
         debugger;
+        // if (props.parentId != undefined) {
+        //     link = LuigiClient.linkManager().withParams({ parentId: props.parentId });
+        // }
+
         if (props.context != undefined) {
-            link = LuigiClient.linkManager().withParams({ type: props.context, action: "Create" });
+            link = LuigiClient.linkManager().withParams({ type: props.context, action: "Create", parentId: props.parentId });
         } else {
             link = LuigiClient.linkManager().withParams({ type: LuigiClient.getContext().parentNavigationContexts[0], action: "Create" });
         }

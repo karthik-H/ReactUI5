@@ -17,11 +17,11 @@ import CustomImageHolder from './CustomImageHolder.js';
 import CustomFieldItem from '../../CustomFieldItem.js';
 
 export default function CustomFacet(props) {
-    // debugger;
     const fields = props.field;
     const editStatus = props.editStatus;
     const association = props.association;
     const type = props.type;
+    const parentId = Object.keys(props.entity).length <= 0 ? "" : props.entity["id"]
     const property = association === undefined ?
         props.property :
         props.property[association];
@@ -109,13 +109,21 @@ export default function CustomFacet(props) {
                 data["data"] = entity
                 console.log("data", data)
                 return (
-                    <ItemList data={entity} context="itemAvailability" />
+                    <ItemList parentId={parentId}
+                        data={entity === undefined ? [] : entity}
+                        context="itemAvailability" />
                 );
             case "imageLinks":
                 return (
                     <CustomImageHolder
+                        entity={entity}
                         editStatus={editStatus}
+                        field={association}
+                        property={property}
+                        onImageSave={props.onImageSave}
+                        onImageUpload={props.onImageUpload}
                         imageUploadpopoverRef={imageUploadpopoverRef}
+                        enableBusyIndicator={props.enableBusyIndicator}
                     />
                 );
             default:
