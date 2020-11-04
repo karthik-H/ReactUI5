@@ -446,8 +446,13 @@ const ObjectForm = () => {
         }
         webWorker.onerror = (error) => {
             setEnableBusyIndicator(false);
+            const errorMessage = {
+                text: error.response,
+                type: "error",
+                closeAfter: 8000
+            }
             LuigiClient.uxManager().hideLoadingIndicator();
-            LuigiClient.uxManager().showAlert('UnExpected Error :(');
+            LuigiClient.uxManager().showAlert(errorMessage);
         }
         setEnableBusyIndicator(true);
         LuigiClient.uxManager().showLoadingIndicator();

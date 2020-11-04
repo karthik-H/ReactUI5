@@ -54,7 +54,7 @@ export default function CustomImageHolder(props) {
         return (
             <div>
                 <Button id="openPopoverButton" design={ButtonDesign.Emphasized}
-                    style={{ ...spacing.sapUiContentPadding, ...spacing.sapUiForceWidthAuto, ...spacing.sapUiSmallMarginBottom }}
+                    style={{ ...spacing.sapUiForceWidthAuto, ...spacing.sapUiSmallMarginBottom }}
                     icon="upload"
                     onClick={(e) => {
                         ImageUploadpopoverRef.current.open(e.target);

@@ -60,6 +60,7 @@
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
     "react-dev-utils": "^9.1.0",
+    "react-devtools": "^4.8.2",
     "react-dom": "^16.13.1",
     "react-querybuilder": "^3.5.1",
     "react-router-dom": "^5.2.0",

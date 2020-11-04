@@ -1,3 +1,5 @@
+// import oAuth2ImplicitGrant from '@luigi-project/plugin-auth-oauth2';
+
 Luigi.setConfig({
   navigation: {
     viewGroupSettings: {
@@ -103,6 +105,24 @@ Luigi.setConfig({
       }
     ]
   },
+//   auth: {
+//     // We have registered the following provider at the window object:
+//     // OAuth2 Implicit Grant: window.LuigiAuthOAuth2 - Docs: https://docs.luigi-project.io/docs/authorization-configuration?section=oauth2-implicit-grant-configuration
+//     // OIDC Implicit Grant: window.LuigiAuthOIDC - Docs: https://docs.luigi-project.io/docs/authorization-configuration/?section=openid-connect-configuration
+
+//     use: 'oAuth2ImplicitGrant',
+//     myOAuth2: {
+//         idpProvider: oAuth2ImplicitGrant,
+//         authorizeUrl: '/auth/idpmock/implicit.html',
+//         logoutUrl: '/auth/idpmock/logout.html',
+//         post_logout_redirect_uri: '/auth/logout.html',
+//         authorizeMethod: 'GET',
+//         oAuthData: {
+//           client_id: 'egDuozijY5SVr0NSIowUP1dT6RVqHnlp',
+//           redirect_uri: '/auth/callback.html'
+//         }
+//     }
+// },
   routing: {
     useHashRouting: true
   },

@@ -25,6 +25,9 @@ self.onmessage = (event) => {
             } else {
                 form.append("images", filesRef[key]);
                 if (property.multiple === "true") {
+                    if(!tempEntity[fieldName]) {
+                        tempEntity[fieldName] = [];
+                    }
                     tempEntity[fieldName].push(URL.createObjectURL(filesRef[key]));
                 } else {
                     tempEntity[fieldName] = URL.createObjectURL(filesRef[key]);
@@ -44,23 +47,5 @@ self.onmessage = (event) => {
                 errorMessage: errorMessage
             });
         })
-        // axios({
-        //     method: 'post',
-        //     url: `${domain}/admin/imageUpload`,
-        //     data: form,
-        //     headers: { 'Content-Type': 'multipart/form-data' }
-        // }).then((response) => {
-        //     self.postMessage({ msg: "success" });
-        // }).catch((response) => {
-        //     const errorMessage = {
-        //         text: response.response === undefined ?
-        //             response.message :
-        //             response.response.data.message,
-        //         type: "error",
-        //         closeAfter: 3000
-        //     }
-        //     self.postMessage({ msg: "Error", errorMessage: errorMessage });
-        // })
-
     }
 }
